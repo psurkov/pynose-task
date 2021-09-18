@@ -8,4 +8,17 @@
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.python</depends>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection
+                language="Python"
+                displayName="Forbidden test name: don't use letter 'c'"
+                groupPath="Python"
+                groupBundle="messages.PluginBundle"
+                groupKey="codeInspection.forbidden.names"
+                enabledByDefault="true"
+                level="WARNING"
+                implementationClass="com.github.psurkov.pynosetask.codeInspection.PyForbiddenTestNames">
+        </localInspection>
+    </extensions>
+
 </idea-plugin>
