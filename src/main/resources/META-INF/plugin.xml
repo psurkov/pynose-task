@@ -21,4 +21,11 @@
         </localInspection>
     </extensions>
 
+    <actions>
+        <action id="com.github.psurkov.pynosetask.action.ShowForbiddenNamesCountAction"
+                class="com.github.psurkov.pynosetask.action.ShowForbiddenNamesCountAction"
+                text="Show Forbidden Names Count" description="Show forbidden names count">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>

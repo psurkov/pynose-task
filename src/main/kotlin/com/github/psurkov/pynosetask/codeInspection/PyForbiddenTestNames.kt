@@ -2,11 +2,14 @@ package com.github.psurkov.pynosetask.codeInspection
 
 import com.github.psurkov.pynosetask.PluginBundle
 import com.intellij.codeInspection.*
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyFunction
+
 
 class PyForbiddenTestNames : PyInspection() {
     override fun buildVisitor(
@@ -39,6 +42,7 @@ class PyForbiddenTestNames : PyInspection() {
                     FixFunctionName()
                 )
             }
+            super.visitPyFunction(pyFunction)
         }
     }
 
@@ -52,6 +56,11 @@ class PyForbiddenTestNames : PyInspection() {
             val newName = pyFunction.name?.replace("c", "py") ?: return
             pyFunction.setName(newName)
         }
+    }
 
+    override fun inspectionFinished(session: LocalInspectionToolSession, problemsHolder: ProblemsHolder) {
+        FileDocumentManager.getInstance()
+            .getDocument(session.file.virtualFile)?.putUserData(Key.create("a"), problemsHolder.resultCount)
+        super.inspectionFinished(session, problemsHolder)
     }
 }
